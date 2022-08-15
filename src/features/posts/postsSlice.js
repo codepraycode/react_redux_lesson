@@ -48,6 +48,26 @@ export const addNewPost = createAsyncThunk('posts/addNewPost', async (initialPos
     const response = await axios.post(POST_URL, initialPost);
     return response.data;
 });
+export const updatePost = createAsyncThunk('posts/updatePost', async (initialPost)=>{
+    const {id} = initialPost;
+
+    try{
+        const response = await axios.put(`${POST_URL}/${id}`, initialPost);
+        return response.data;
+    }
+    catch(err){
+        return initialPost; // only for testing
+    }
+
+    
+});
+export const deletePost = createAsyncThunk('posts/deletePost', async (initialPost)=>{
+    const {id} = initialPost;
+
+    const response = await axios.delete(`${POST_URL}/${id}`, initialPost);
+    if(response?.status === 200) return initialPost;
+    return `${response?.status}: ${response?.statusText}`;
+});
 
 const postsSlice = createSlice({
     name: 'posts',
@@ -145,8 +165,37 @@ const postsSlice = createSlice({
                     coffee: 0
                 }
 
-                console.log(action.payload);
+                // console.log(action.payload);
                 state.posts.push(action.payload);
+            })
+            .addCase(updatePost.fulfilled, (state,action)=>{
+
+                if(!action.payload?.id){
+                    console.log("Update could not complete")
+                    console.log(action.payload)
+                    return;
+                }
+
+                const {id} = action.payload;
+                action.payload.date = new Date().toISOString();
+                const posts = state.posts.filter(post=>post.id !== id);
+                state.posts = [...posts,action.payload];
+
+            })
+            .addCase(deletePost.fulfilled, (state,action)=>{
+
+                if(!action.payload?.id){
+                    console.log("Delete could not complete")
+                    console.log(action.payload)
+                    return;
+                }
+
+                const {id} = action.payload;
+                // action.payload.date = new Date().toISOString();
+                state.posts = state.posts.filter(post=>post.id !== id);
+                // state.posts = [...posts,action.payload];
+                // state.posts = posts
+
             })
     }
 });
