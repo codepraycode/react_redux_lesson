@@ -5,7 +5,7 @@ import ReactionButtons from './ReactionButtons';
 import TimeAgo from './TimeAgo';
 
 
-const PostsExcerpts = ({post}) => {
+const PostsExcerpt = ({post}) => {
   return (
       <article>
             <h2>{post.title}</h2>
@@ -24,4 +24,7 @@ const PostsExcerpts = ({post}) => {
   )
 }
 
-export default PostsExcerpts
+// using memo will make the component re-render only when it props changes
+// PostsExcerpt = React.memo(PostsExcerpt);
+
+export default PostsExcerpt
