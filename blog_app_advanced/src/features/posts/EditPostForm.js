@@ -55,7 +55,7 @@ const EditPostForm = () => {
         <option
             key={user.id}
             value={user.id}
-        >{user.name}</option>
+        >{user.firstName} {user.lastName}</option>
     ))
 
     const onDeletePostClicked = () => {

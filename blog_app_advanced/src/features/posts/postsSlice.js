@@ -8,7 +8,7 @@ import {
 import { sub } from 'date-fns';
 import axios from "axios";
 
-const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
+const POSTS_URL = 'https://dummyjson.com/posts';
 
 const postsAdapter = createEntityAdapter({
     sortComparer: (a, b) => b.date.localeCompare(a.date)
@@ -26,8 +26,8 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 })
 
 export const addNewPost = createAsyncThunk('posts/addNewPost', async (initialPost) => {
-    const response = await axios.post(POSTS_URL, initialPost)
-    return response.data
+    const response = await axios.post(`${POSTS_URL}/add`, initialPost);
+    return response.data;
 })
 
 export const updatePost = createAsyncThunk('posts/updatePost', async (initialPost) => {
@@ -75,7 +75,8 @@ const postsSlice = createSlice({
                 state.status = 'succeeded'
                 // Adding date and reactions
                 let min = 1;
-                const loadedPosts = action.payload.map(post => {
+                const { posts } = action.payload;
+                const loadedPosts = posts.map(post => {
                     post.date = sub(new Date(), { minutes: min++ }).toISOString();
                     post.reactions = {
                         thumbsUp: 0,
