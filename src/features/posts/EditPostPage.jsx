@@ -66,7 +66,7 @@ const EditPostPage = () => {
 
     const usersOptions = users.map((user,i)=>(
         <option key={i} value={user.id}>
-            {user.name}
+            {user.firstName} {user.lastName}
         </option>
     ));
 

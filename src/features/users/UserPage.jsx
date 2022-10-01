@@ -23,7 +23,7 @@ const UserPage = () => {
     ))
   return (
     <section>
-        <h2>{user?.name}</h2>
+          <h2>{user && `${user.firstName} ${user.lastName}`.trim()}</h2>
         <ol>{postTitles}</ol>
     </section>
   )

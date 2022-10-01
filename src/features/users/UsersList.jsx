@@ -7,7 +7,7 @@ const UsersList = () => {
 
     const renderedUsers = users.map(user => (
         <li key={user.id}>
-            <Link to={`/user/${user.id}`}>{user.name}</Link>
+            <Link to={`/user/${user.id}`}>{user.firstName} {user.lastName}</Link>
         </li>
     ))
 
