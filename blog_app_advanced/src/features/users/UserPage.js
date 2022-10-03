@@ -14,7 +14,7 @@ const UserPage = () => {
         isSuccess,
         isError,
         error
-    } = useGetPostsByUserIdQuery();
+    } = useGetPostsByUserIdQuery(userId);
 
     let content;
 

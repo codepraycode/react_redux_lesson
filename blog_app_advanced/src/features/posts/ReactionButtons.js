@@ -20,7 +20,7 @@ const ReactionButtons = ({ post }) => {
                 onClick={ () =>{
                     const newValue = post.reactions[name] +1;
 
-                    addReaction({ postId: post.id, reaction: {...post.reactions, [name]:newValue } });
+                    addReaction({ postId: post.id, reactions: {...post.reactions, [name]:newValue } });
                 }}
             >
                 {emoji} {post.reactions[name]}
